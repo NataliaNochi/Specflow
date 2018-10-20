@@ -72,9 +72,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\LoginSteps.cs">
-      <Link>Exemplo.Steps\LoginSteps.cs</Link>
-    </Compile>
     <Compile Include="Exemplo.Details\CadastroUsuarioDetails.cs" />
     <Compile Include="Exemplo.Enum\EnumNavegador.cs" />
     <Compile Include="Exemplo.Enum\EnumTipoElemento.cs" />
@@ -92,6 +89,7 @@
     <Compile Include="Exemplo.Pages\CadastrarUsuarioPage.cs" />
     <Compile Include="Exemplo.Pages\LoginPage.cs" />
     <Compile Include="Exemplo.Steps\CadastrarUsuarioSteps.cs" />
+    <Compile Include="Exemplo.Steps\LoginSteps.cs" />
     <Compile Include="Exemplo.Utils\Hooks.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
