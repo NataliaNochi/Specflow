@@ -10,7 +10,7 @@ namespace Teste_Exemplo
     {
         private readonly IWebDriver _driver;
         public LoginSteps(IWebDriver driver) => _driver = driver;
-        
+
         private LoginPage loginPage;
              
         [Given(@"o acesso ao site")]

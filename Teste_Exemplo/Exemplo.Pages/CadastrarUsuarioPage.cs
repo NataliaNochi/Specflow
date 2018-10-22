@@ -7,7 +7,7 @@ using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using Teste_Exemplo.Exemplo.Details;
 using Teste_Exemplo.Exemplo.Enum;
-
+using Teste_Exemplo.Exemplo.Utils;
 
 namespace Teste_Exemplo.Exemplo.Pages
 {
@@ -21,13 +21,13 @@ namespace Teste_Exemplo.Exemplo.Pages
         public void AcessarMenuUsuario()
         {
             basePage = new BasePage(_driver);
+
             IWebElement menuUserForm = basePage.ObterElemento("#cssmenu > ul > li:nth-child(3) > a > span", EnumTipoElemento.Css);
             menuUserForm.Click();
         }
 
         public void CadastrarUsuario(Table dadosUsuario)
         {
-            basePage = new BasePage(_driver);
 
             var usuario = dadosUsuario.CreateSet<CadastroUsuarioDetails>();
             foreach (var dado in usuario)

@@ -8,9 +8,11 @@ namespace Teste_Exemplo.Exemplo.Enum
 {
     public enum EnumNavegador
     {
+        Chrome_Headless,
         Chrome,
         Firefox,
         Edge,
         IE
+        
     }
 }

@@ -2,13 +2,15 @@
 using OpenQA.Selenium;
 using System;
 using Teste_Exemplo.Exemplo.Enum;
+using Teste_Exemplo.Exemplo.Utils;
 
 namespace Teste_Exemplo.Exemplo.Pages
 {
-    public class LoginPage
+    public class LoginPage 
     {
         private readonly IWebDriver _driver;
         public LoginPage(IWebDriver driver) => _driver = driver;
+
         public BasePage basePage;
 
         public void Login(string user, string password)
@@ -16,6 +18,7 @@ namespace Teste_Exemplo.Exemplo.Pages
             basePage = new BasePage(_driver);
 
             IWebElement txtUserName = basePage.ObterElemento("UserName", EnumTipoElemento.Name);
+            txtUserName.Click();
             txtUserName.SendKeys(user);
 
             IWebElement txtPassword = basePage.ObterElemento("Password", EnumTipoElemento.Name);
@@ -27,8 +30,6 @@ namespace Teste_Exemplo.Exemplo.Pages
 
         public void ValidaExibicaoFormulario()
         {
-            basePage = new BasePage(_driver);
-
             IWebElement frmUser = basePage.ObterElemento("details", EnumTipoElemento.Id);
             Assert.True(frmUser.Displayed);
         }

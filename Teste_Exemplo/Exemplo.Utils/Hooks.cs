@@ -1,4 +1,5 @@
 ﻿using BoDi;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
@@ -6,7 +7,6 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using TechTalk.SpecFlow;
 using Teste_Exemplo.Exemplo.Enum;
-using Teste_Exemplo.Exemplo.Pages;
 
 namespace Teste_Exemplo.Exemplo.Utils
 {
@@ -16,6 +16,8 @@ namespace Teste_Exemplo.Exemplo.Utils
         private readonly IObjectContainer _objectContainer;
         private IWebDriver _driver;
 
+        private EnumNavegador _browser;
+
         public Hooks(IObjectContainer objectContainer)
         {
             _objectContainer = objectContainer;
@@ -24,18 +26,21 @@ namespace Teste_Exemplo.Exemplo.Utils
         [BeforeScenario]
         public void InitializeTest()
         {
-            Browser(EnumNavegador.Chrome);
+            var browser = TestContext.Parameters.Get("Browser", "Chrome");
+            _browser = (EnumNavegador)System.Enum.Parse(typeof(EnumNavegador), browser);
+            SelecionarBrowser(_browser);
+
             _driver.Manage().Window.Maximize();
             _driver.Navigate().GoToUrl("http://executeautomation.com/demosite/Login.html");
         }
-        
+
         [AfterScenario]
         public void Quit()
         {
             _driver.Quit();
         }
 
-        public void Browser(EnumNavegador navegador)
+        public void SelecionarBrowser(EnumNavegador navegador)
         {
             switch (navegador)
             {
@@ -49,13 +54,20 @@ namespace Teste_Exemplo.Exemplo.Utils
                     _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
                     break;
 
+                case EnumNavegador.IE:
+                    _driver = new InternetExplorerDriver();
+                    _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
+                    break;
+
                 case EnumNavegador.Edge:
                     _driver = new EdgeDriver();
                     _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
                     break;
 
-                case EnumNavegador.IE:
-                    _driver = new InternetExplorerDriver();
+                case EnumNavegador.Chrome_Headless:
+                    ChromeOptions option = new ChromeOptions();
+                    option.AddArgument("--headless");
+                    _driver = new ChromeDriver(option);
                     _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
                     break;
             }
